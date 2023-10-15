@@ -1,9 +1,12 @@
+import Header from "./components/Header";
+import ProductList from "./components/ProductList";
 
 
 function App() {
   return (
-    <div className="App">
-      App <i class="bi bi-arrow-bar-down"></i>
+    <div className="container">
+      <Header />
+      <ProductList />
     </div>
   );
 }
