@@ -2,6 +2,9 @@ import { useState } from "react";
 import Header from "./components/Header";
 import ProductList from "./components/ProductList";
 import Swal from 'sweetalert2';
+import { Routes, Route } from "react-router-dom";
+import Cart from "./components/Cart";
+import Home from "./components/Home";
 
 
 function App() {
@@ -66,8 +69,14 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
-      <ProductList products={products} addToCart={addToCart} />
+      <Header cartItems={cartItems} />
+
+        <Routes>
+          <Route path="/" exact element={<Home products={products} addToCart={addToCart} />} />
+          <Route path="/cart" exact element={<Cart />} />
+        </Routes>
+
+      {/* <ProductList products={products} addToCart={addToCart} /> */}
     </div>
   );
 }
