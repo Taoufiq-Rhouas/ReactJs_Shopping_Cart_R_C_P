@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import ProductList from "./components/ProductList";
+import Swal from 'sweetalert2';
 
 
 function App() {
@@ -32,10 +33,41 @@ function App() {
     }
   ]);
 
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (item) => {
+    let productItem = cartItems.find(product => product.id === item.id);
+    if(productItem){
+      productItem.quantity += 1;
+      setCartItems([...cartItems]);
+
+      // Alert
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your item has been updated',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      item.quantity = 1;
+      setCartItems([item,...cartItems]);
+
+      // Alert
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your item has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  }
+
   return (
     <div className="container">
       <Header />
-      <ProductList products={products} />
+      <ProductList products={products} addToCart={addToCart} />
     </div>
   );
 }
