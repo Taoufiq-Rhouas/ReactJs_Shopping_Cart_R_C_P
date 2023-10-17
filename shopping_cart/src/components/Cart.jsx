@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ShoppingContext } from './context/ShoppingContext'
 
-export default function Cart({cartItems, incrementQ, decrementQ}) {
+export default function Cart() {
+    const {cartItems, incrementQ, decrementQ, removeFromCart} = useContext(ShoppingContext)
     return (
         <div className='row my-4' >
             <div className="col-md-12">
@@ -55,7 +57,11 @@ export default function Cart({cartItems, incrementQ, decrementQ}) {
                                                 ${item.price * item.quantity}
                                             </td>
                                             <td>
-                                                <i className="bi bi-caret-x text-denger"></i>
+                                                <i 
+                                                    className="bi bi-cart-x text-danger"
+                                                    style={{cursor: 'pointer'}}
+                                                    onClick={() => removeFromCart(item)}
+                                                ></i>
                                             </td>
                                         </tr>
                                     ))

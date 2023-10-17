@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ShoppingContext } from './context/ShoppingContext'
 
-export default function ProductListItem({product, addToCart}) {
+export default function ProductListItem({product}) {
+    const {addToCart} = useContext(ShoppingContext)
     return (
         <div className='col-md-4 mb-2' >
             <div className="card" style={{width: '18rem'}}>

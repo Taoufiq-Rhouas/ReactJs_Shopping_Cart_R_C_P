@@ -1,8 +1,8 @@
 import React from 'react'
 import ProductList from './ProductList'
 
-export default function Home({products, addToCart}) {
+export default function Home() {
     return (
-            <ProductList products={products} addToCart={addToCart} />
+            <ProductList />
     )
 }

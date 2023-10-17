@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Routes, Route } from "react-router-dom";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
+import { ShoppingContext } from "./components/context/ShoppingContext";
 
 
 function App() {
@@ -103,35 +104,41 @@ function App() {
     }
   }
 
-  return (
-    <div className="container">
-      <Header cartItems={cartItems} />
+  const removeFromCart = (item) => {
+    setCartItems(cartItems.filter(product => product.id !== item.id));
+    // Alert
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your item has been removed',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
 
+  return (
+    <ShoppingContext.Provider 
+      value={
+        {
+          products,
+          addToCart,
+          incrementQ,
+          decrementQ,
+          cartItems,
+          removeFromCart
+        }
+      } 
+    >
+      <div className="container">
+        <Header cartItems={cartItems} />
         <Routes>
-          <Route 
-            path="/" 
-            exact 
-            element={
-              <Home products={products} 
-                addToCart={addToCart} 
-              />
-            } 
-          />
-          <Route 
-            path="/cart" 
-            exact 
-            element={
-              <Cart 
-                cartItems={cartItems}
-                incrementQ={incrementQ}
-                decrementQ={decrementQ}
-              />
-            } 
-          />
+          <Route path="/" exact element={<Home />} />
+          <Route path="/cart" exact element={<Cart />} />
         </Routes>
 
-      {/* <ProductList products={products} addToCart={addToCart} /> */}
-    </div>
+        {/* <ProductList products={products} addToCart={addToCart} /> */}
+      </div>
+    </ShoppingContext.Provider>
   );
 }
 
