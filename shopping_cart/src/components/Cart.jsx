@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Cart({cartItems}) {
+export default function Cart({cartItems, incrementQ, decrementQ}) {
     return (
         <div className='row my-4' >
             <div className="col-md-12">
@@ -34,15 +34,25 @@ export default function Cart({cartItems}) {
                                             </td>
                                             <td>{item.name}</td>
                                             <td>
-                                                <i className="bi bi-caret-up"></i>
+                                                <i 
+                                                    className="bi bi-caret-up"
+                                                    style={{cursor: 'pointer'}}
+                                                    onClick={() => incrementQ(item)}
+                                                ></i>
                                                 <span className="mx-2">
                                                     {item.quantity}
                                                 </span>
-                                                <i className="bi bi-caret-down"></i>
+                                                <i 
+                                                    className="bi bi-caret-down"
+                                                    style={{cursor: 'pointer'}}
+                                                    onClick={() => decrementQ(item)}
+                                                ></i>
                                             </td>
-                                            <td>{item.price}</td>
                                             <td>
-                                                {item.price * item.quantity}
+                                                ${item.price}
+                                            </td>
+                                            <td>
+                                                ${item.price * item.quantity}
                                             </td>
                                             <td>
                                                 <i className="bi bi-caret-x text-denger"></i>

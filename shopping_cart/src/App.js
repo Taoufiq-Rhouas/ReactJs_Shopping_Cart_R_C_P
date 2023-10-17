@@ -67,13 +67,67 @@ function App() {
     }
   }
 
+  const incrementQ = (item) => {
+    let productItem = cartItems.find(product => product.id === item.id);
+    if(productItem){
+      productItem.quantity += 1;
+      setCartItems([...cartItems]);
+      // Alert
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your item has been updated',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  }
+
+  const decrementQ = (item) => {
+    let productItem = cartItems.find(product => product.id === item.id);
+    if(productItem){
+      productItem.quantity -= 1;
+      if(productItem.quantity === 0){
+        setCartItems(cartItems.filter(product => product.id !== item.id));
+      }else{
+        setCartItems([...cartItems]);
+      }
+      // Alert
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your item has been updated',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  }
+
   return (
     <div className="container">
       <Header cartItems={cartItems} />
 
         <Routes>
-          <Route path="/" exact element={<Home products={products} addToCart={addToCart} />} />
-          <Route path="/cart" exact element={<Cart cartItems={cartItems} />} />
+          <Route 
+            path="/" 
+            exact 
+            element={
+              <Home products={products} 
+                addToCart={addToCart} 
+              />
+            } 
+          />
+          <Route 
+            path="/cart" 
+            exact 
+            element={
+              <Cart 
+                cartItems={cartItems}
+                incrementQ={incrementQ}
+                decrementQ={decrementQ}
+              />
+            } 
+          />
         </Routes>
 
       {/* <ProductList products={products} addToCart={addToCart} /> */}
