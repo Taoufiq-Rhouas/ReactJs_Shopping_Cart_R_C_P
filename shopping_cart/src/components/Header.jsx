@@ -1,9 +1,17 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { ShoppingContext } from './context/ShoppingContext'
+import { useSelector } from 'react-redux'
 
 export default function Header() {
-    const {cartItems} = useContext(ShoppingContext)
+    // // useContext
+    // const {cartItems} = useContext(ShoppingContext)
+
+    // useSelector
+    // state.cart is a state in reducer 'store/index.js'
+    const { cartItems } = useSelector(state => state.cart)
+
+    
     return (
          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
