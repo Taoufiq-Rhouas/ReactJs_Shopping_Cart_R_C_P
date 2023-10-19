@@ -1,8 +1,17 @@
 import React, { useContext } from 'react'
 import { ShoppingContext } from './context/ShoppingContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { decrementQ, incrementQ, removeFromCart } from './features/cartSlice';
 
 export default function Cart() {
-    const {cartItems, incrementQ, decrementQ, removeFromCart} = useContext(ShoppingContext)
+    // // useContext
+    // const {cartItems, incrementQ, decrementQ, removeFromCart} = useContext(ShoppingContext)
+
+    // useSelector
+    const { cartItems } = useSelector(state => state.cart);
+
+    const dispaatch = useDispatch();
+
     return (
         <div className='row my-4' >
             <div className="col-md-12">
@@ -39,7 +48,13 @@ export default function Cart() {
                                                 <i 
                                                     className="bi bi-caret-up"
                                                     style={{cursor: 'pointer'}}
-                                                    onClick={() => incrementQ(item)}
+                                                    // // useContext
+                                                    // onClick={() => incrementQ(item)}
+
+                                                    onClick={() => dispaatch(incrementQ(item))}
+
+                                                    // useSelector
+
                                                 ></i>
                                                 <span className="mx-2">
                                                     {item.quantity}
@@ -47,7 +62,10 @@ export default function Cart() {
                                                 <i 
                                                     className="bi bi-caret-down"
                                                     style={{cursor: 'pointer'}}
-                                                    onClick={() => decrementQ(item)}
+                                                    // onClick={() => decrementQ(item)}
+
+                                                    onClick={() => dispaatch(decrementQ(item))}
+                                                    
                                                 ></i>
                                             </td>
                                             <td>
@@ -60,7 +78,9 @@ export default function Cart() {
                                                 <i 
                                                     className="bi bi-cart-x text-danger"
                                                     style={{cursor: 'pointer'}}
-                                                    onClick={() => removeFromCart(item)}
+                                                    // onClick={() => removeFromCart(item)}
+
+                                                    onClick={() => dispaatch(removeFromCart(item))}
                                                 ></i>
                                             </td>
                                         </tr>
